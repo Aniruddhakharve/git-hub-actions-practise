@@ -28,6 +28,7 @@ jobs:
     steps:
       - name: build the image
         run: docker --version
+        
   test:
     needs:
       - code
@@ -37,7 +38,9 @@ jobs:
     steps:
       - name: test the code
         run: echo "check the code"
-  dispach:
+        
+  dieploy:
+    if: ${{inputs.environment == 'prod'}}
     needs:
       - code
       - build
