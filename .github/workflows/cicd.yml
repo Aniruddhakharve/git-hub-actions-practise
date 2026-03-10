@@ -40,7 +40,7 @@ jobs:
         run: echo "check the code"
         
   dieploy:
-    if: inputs.environment == 'prod'
+    if: inputs.environment == 'dev'
     needs:
       - code
       - build
