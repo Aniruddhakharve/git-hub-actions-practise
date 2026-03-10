@@ -1,50 +1,111 @@
+# Name of the workflow that will appear in the GitHub Actions tab
 name: protfolio
 
+
+# Defines the events that will trigger this workflow
 on:
+
+  # Trigger workflow when code is pushed
   push:
     branches:
-      - main
+      - main           # Run workflow only when changes are pushed to main branch
+
+    # Run workflow only if HTML files are modified
+    # This avoids unnecessary workflow runs and saves GitHub Actions minutes
     paths:
       - '**.html'
+
+  # Allows manual execution of the workflow from the GitHub Actions UI
   workflow_dispatch:
 
-permissions: 
+
+
+# Define permissions required by the workflow
+permissions:
+
+  # Allows the workflow to deploy content to GitHub Pages
   pages: write
+
+  # Allows authentication using GitHub's OIDC token
+  # Required for secure deployment to GitHub Pages
   id-token: write
+
+  # Allows the workflow to read repository contents
+  # Needed for actions like checkout
   contents: read
 
+
+
+# Define jobs that will run in this workflow
 jobs:
+
+  # Job name
   deploy:
+
+    # Specifies the runner environment where the workflow will execute
+    # GitHub creates a fresh Ubuntu virtual machine for this job
     runs-on:
       - ubuntu-latest
+
+
+    # Defines the deployment environment
+    # GitHub uses environments to track deployments and apply security rules
     environment:
+
+      # The environment name required for GitHub Pages deployment
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }} 
-      
+
+      # URL of the deployed website
+      # This is automatically generated after deployment
+      url: ${{ steps.deployment.outputs.page_url }}
+
+
+    # Steps define the sequence of tasks executed in the job
     steps:
-            # get access to your Portfolio code via pre-built actions
-            # clones or checks out the code where this workflow is written
-            # STEP 1
+
+
+      # --------------------------------------------------
+      # STEP 1 : Checkout Repository
+      # --------------------------------------------------
+      # This step downloads the repository code to the runner
+      # Without this step, the workflow runner would not have access
+      # to your HTML files or project source code
+      # It clones the repository into the runner machine
       - name: git checkout
         uses: actions/checkout@v4
-        
 
-        # setup GitHub Pages
-        # STEP 2
+
+
+      # --------------------------------------------------
+      # STEP 2 : Configure GitHub Pages
+      # --------------------------------------------------
+      # This action prepares the runner environment for GitHub Pages deployment
+      # It configures the required environment variables and settings
+      # needed by GitHub Pages deployment actions
       - name: setup githubpages
         uses: actions/configure-pages@v4
 
 
-        # static code artifacts
-        # STEP 3
-      - name:  upload static files
-        uses:  actions/upload-pages-artifact@v4
+
+      # --------------------------------------------------
+      # STEP 3 : Upload Static Website Files
+      # --------------------------------------------------
+      # This step uploads the static site files (HTML, CSS, JS)
+      # as an artifact that GitHub Pages will use for deployment
+      # The "path: ." means upload all files from the repository root
+      - name: upload static files
+        uses: actions/upload-pages-artifact@v4
         with:
           path: "."
-          
 
-        # Make page Live
-        # STEP 4  
+
+      # --------------------------------------------------
+      # STEP 4 : Deploy Website to GitHub Pages
+      # --------------------------------------------------
+      # This step publishes the uploaded artifact to GitHub Pages
+      # making the website accessible on the internet
+      # The id "deployment" allows us to reference outputs
+      # such as the deployed website URL
       - name: Deploy to Github pages
         id: deployment
         uses: actions/deploy-pages@v4
