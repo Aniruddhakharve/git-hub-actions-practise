@@ -1,0 +1,37 @@
+# Name of the workflow.
+# This name will appear in the GitHub Actions tab so you can identify the workflow easily.
+name: hello workflow
+
+# Defines when the workflow should run.
+on:
+  push:                # Trigger the workflow whenever code is pushed to the repository
+    branches:
+      - main           # But only run it if the push happens on the main branch
+
+# jobs section defines what tasks will run in this workflow
+jobs:
+
+  # Job ID (can be any name). Here we named it "greet"
+  greet:
+
+    # Specifies which virtual machine the job will run on
+    # GitHub will start a fresh Linux runner to execute the job
+    runs-on:
+      - ubuntu-slim
+
+    # Steps define the sequence of commands the runner will execute
+    steps:
+
+      # First step of the job
+      - name: say hello to users   # Just a readable label shown in the Actions logs
+
+        # run allows us to execute a shell command inside the runner
+        # This prints "hello dost" in the workflow logs
+        run: echo "hello dost"
+
+      # Second step of the job
+      - name: say hello to username  # Label for the step shown in logs
+
+        # $USER is an environment variable available in Linux
+        # It prints the username of the GitHub runner machine
+        run: echo "hello $USER"
