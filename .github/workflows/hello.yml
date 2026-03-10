@@ -4,7 +4,7 @@ name: hello workflow
 
 # Defines when the workflow should run.
 on:
-  push:                # Trigger the workflow whenever code is pushed to the repository
+  push:                # Trigger the workflow whenever code is pushed to the repository this is deployment not delivery
     branches:
       - main           # But only run it if the push happens on the main branch
 
