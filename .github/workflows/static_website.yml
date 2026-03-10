@@ -30,7 +30,7 @@ jobs:
         # setup GitHub Pages
         # STEP 2
       - name: setup githubpages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
 
 
         # static code artifacts
