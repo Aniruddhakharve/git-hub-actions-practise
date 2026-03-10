@@ -2,6 +2,16 @@ name: workflow_dispatch
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: this is env value where this workflow run
+        default: dev
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
 
 jobs:
   code:
