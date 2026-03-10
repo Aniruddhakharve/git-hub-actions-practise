@@ -11,18 +11,27 @@ jobs:
       - name: check git hub
         run: echo "hello code check"
   build:
+    needs:
+      - code
     runs-on:
       - ubuntu-latest
     steps:
       - name: build the image
         run: docker --version
   test:
+    needs:
+      - code
+      - build
     runs-on:
       - ubuntu-latest
     steps:
       - name: test the code
         run: echo "check the code"
   dispach:
+    needs:
+      - code
+      - build
+      - test
     runs-on:
       - ubuntu-latest
     steps:
