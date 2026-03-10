@@ -17,7 +17,7 @@ jobs:
     # Specifies which virtual machine the job will run on
     # GitHub will start a fresh Linux runner to execute the job
     runs-on:
-      - ubuntu-slim
+      - ubuntu-latest
 
     # Steps define the sequence of commands the runner will execute
     steps:
