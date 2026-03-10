@@ -35,3 +35,11 @@ jobs:
         # $USER is an environment variable available in Linux
         # It prints the username of the GitHub runner machine
         run: echo "hello $USER"
+        
+  details:
+    runs-on: ubuntu-latest
+    steps:
+      - name: show what is version of pyhton,docker etc
+        run:
+           python --version
+           docker --version
