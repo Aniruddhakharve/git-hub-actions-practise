@@ -9,7 +9,7 @@ jobs:
       - ubuntu-latest
     steps:
       - name: check git hub
-        run: echo"hello code check"
+        run: echo "hello code check"
   build:
     runs-on:
       - ubuntu-latest
