@@ -9,7 +9,7 @@ on:
     branches:
       - main           # But only run it if the push happens on the main branch
     paths:
-      - '**.yml'
+      - '.github/workflows/hello.yml'
 
 # jobs section defines what tasks will run in this workflow
 jobs:
