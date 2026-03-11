@@ -19,5 +19,9 @@ jobs:
         - name: show files
           run: ls -la
 
+        - name: Set up Docker Compose
+        # Official Docker action to install the 'docker compose' command
+          uses: docker/setup-compose-action@v2
+
         - name: deploy with docker compose
-          run: docker compose up -d --build
+          run: docker compose down && docker compose up -d --build  --force-recreate
