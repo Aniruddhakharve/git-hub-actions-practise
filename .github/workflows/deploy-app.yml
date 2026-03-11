@@ -16,5 +16,8 @@ jobs:
         - name: checkout code
           uses: actions/checkout@v4
 
+        - name: show files
+          run: ls -la
+
         - name: deploy with docker compose
           run: docker compose up -d --build
