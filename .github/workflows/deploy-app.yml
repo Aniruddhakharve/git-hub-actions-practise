@@ -1,6 +1,11 @@
 name: Deploy flask app
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Docker build and push"]
+    types:
+      - completed
+    branches:
+      - main
 
 jobs:
     deploy:
