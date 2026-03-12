@@ -1,4 +1,4 @@
-name: Docker Build
+name: Docker Build & push
 
 on:
   push:
@@ -22,6 +22,7 @@ jobs:
             - name: Build and push production image
               uses: docker/build-push-action@v5
               with:
+                context: .
                 push: true
                 tags: |
                     ${{ vars.DOCKER_USERNAME }}/github-actions-py-app:latest
