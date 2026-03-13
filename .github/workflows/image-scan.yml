@@ -16,6 +16,7 @@ jobs:
         with:
           image-ref: ${{ vars.DOCKERHUB_USER }}/github-action-app:latest
           format: table
-          exit-code: "1"  # Set exit code to 1 if vulnerabilities are found
           severity: HIGH,CRITICAL   # Only report HIGH and CRITICAL vulnerabilities
+          exit-code: "1"  # Set exit code to 1 if vulnerabilities are found
+          
         
