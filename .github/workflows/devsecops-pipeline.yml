@@ -24,8 +24,15 @@ jobs:
         needs: [code-quality, secret-scan, dependency-scan, docker-scan]
         uses: ./.github/workflows/docker-build-push.yml   
         secrets: inherit 
-
+    
+    # image scan with trivy after the image is build and pushed to dockerhub
     trivy-scan:
         needs: [build]
         uses: ./.github/workflows/image-scan.yml
         secrets: inherit
+    
+    # deploy to prod server after the image is scanned and found no vulnerabilities
+    deploy:
+        needs: [trivy-scan]
+        uses: ./.github/workflows/deploy-to-server.yml
+        secrets: inherit  
