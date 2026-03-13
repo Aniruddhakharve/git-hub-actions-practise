@@ -18,7 +18,14 @@ jobs:
     docker-scan:    
         uses: ./.github/workflows/docker-lint.yml
 
+    
+    # build onece the sercurity checks are passed    
     build:
         needs: [code-quality, secret-scan, dependency-scan, docker-scan]
         uses: ./.github/workflows/docker-build-push.yml   
         secrets: inherit 
+
+    trivy-scan:
+        needs: [build]
+        uses: ./.github/workflows/image-scan.yml
+        secrets: inherit
