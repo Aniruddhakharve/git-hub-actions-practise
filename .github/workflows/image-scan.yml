@@ -17,6 +17,7 @@ jobs:
           image-ref: ${{ vars.DOCKERHUB_USER }}/github-action-app:latest
           format: table
           severity: HIGH,CRITICAL   # Only report HIGH and CRITICAL vulnerabilities
+          ignore-unfixed: true   # Ignore vulnerabilities that do not have a fix available
           exit-code: "1"  # Set exit code to 1 if vulnerabilities are found
           
         
