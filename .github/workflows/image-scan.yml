@@ -19,3 +19,6 @@ jobs:
           exit-code: "1"  # Set exit code to 1 if vulnerabilities are found
           severity: HIGH,CRITICAL   # Only report HIGH and CRITICAL vulnerabilities
           ignore-unfixed: true  # Ignore vulnerabilities that do not have a fix available
+          output: trivy-results.txt
+      - name: Show Trivy results
+        run: cat trivy-results.txt
