@@ -1,23 +1,20 @@
 #uses trivy image scanning to scan the push docker images and find if any CVE's are there or not and we can add this in our pipelines and we can scan our docker images and find if any security vulnerability , CVE's etc
-name:  Image Scanner    
-
+name: Image Scanner
 on:
-  workflow_call:
-
+  workflow_call: 
 jobs:
-    image-scanner:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Login to DockerHub
-              uses: docker/login-action@v3
-              with:
-                username: ${{ vars.DOCKERHUB_USER }}
-                password: ${{ secrets.DOCKERHUB_TOKEN }}
-            
-            - name: Run Trivy vulnerability scanner
-              uses: aquasecurity/trivy-action@0.33.1   
-              with:
-                image-ref: ${{ vars.DOCKERHUB_USER }}/github-action-app:latest
-                format: 'table'
-                exit-code: '1'  # Set exit code to 1 if vulnerabilities are found
-                severity: 'HIGH,CRITICAL'  # Only report HIGH and CRITICAL vulnerabilities
+  image-scanner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: ${{ vars.DOCKERHUB_USER }}/github-action-app:latest
+          format: table
+          exit-code: "1"  # Set exit code to 1 if vulnerabilities are found
+          severity: HIGH,CRITICAL   # Only report HIGH and CRITICAL vulnerabilities
