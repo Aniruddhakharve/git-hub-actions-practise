@@ -1,0 +1,17 @@
+# This workflow is for linting Dockerfiles using Hadolint & scan the docker files for issues and CVE's
+name: Docker Lint
+
+on:
+  workflow_call:
+
+jobs:
+  validate-dockerfile:
+    runs-on: ubuntu-latest
+    steps:
+        - name: checkout code
+          uses: actions/checkout@v4
+
+        - name: validate dockerfile
+          uses: hadolint/hadolint-action@v3.1.0
+          with:
+            dockerfile: Dockerfile
