@@ -16,4 +16,14 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
             echo "======== starting deployment ========"
-            mkdir devops
+            echo "======== Pull Latest Docker image ========="
+            docker pull ${{ vars.DOCKERHUB_USER }}/github-action-app:latest
+            echo "======== Stop and remove old container if running ========"
+            docker stop github-action-app || true
+            docker rm github-action-app || true
+            echo "======== Run new container "
+            docker run -d \
+            -p 80:80 \
+            --name github-action-app \
+            ${{ vars.DOCKERHUB_USER }}/github-action-app:latest
+            echo "======== Deployment completed ========"
