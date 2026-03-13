@@ -15,6 +15,20 @@ jobs:
           username: ${{ secrets.EC2_SSH_USER }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
+            echo "Updating packages"
+            sudo apt-get update -y
+
+            echo "Installing Docker and Compose"
+            sudo apt-get install docker.io docker-compose-v2 -y
+
+            echo "Starting and enabling Docker service"
+            sudo systemctl start docker
+            sudo systemctl enable docker
+
+            echo "Adding user to docker group"
+            sudo usermod -aG docker $USER
+            newgrp docker
+
             echo "======== starting deployment ========"
             echo "======== Pull Latest Docker image ========="
             docker pull ${{ vars.DOCKERHUB_USER }}/github-action-app:latest
@@ -26,4 +40,6 @@ jobs:
             -p 80:80 \
             --name github-action-app \
             ${{ vars.DOCKERHUB_USER }}/github-action-app:latest
+            echo "Cleaning unused Docker images"
+            docker image prune -f
             echo "======== Deployment completed ========"
