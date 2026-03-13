@@ -4,16 +4,17 @@ name: protfolio
 
 # Defines the events that will trigger this workflow
 on:
+  workflow_dispatch:  # Allows manual triggering of the workflow from the GitHub UI
 
   # Trigger workflow when code is pushed
-  push:
-    branches:
-      - main           # Run workflow only when changes are pushed to main branch
+  # push:
+  #   branches:
+  #     - main           # Run workflow only when changes are pushed to main branch
 
     # Run workflow only if HTML files are modified
     # This avoids unnecessary workflow runs and saves GitHub Actions minutes
-    paths:
-      - '**.html'
+    # paths:
+    #   - '**.html'
 
   # Allows manual execution of the workflow from the GitHub Actions UI
   workflow_dispatch:
