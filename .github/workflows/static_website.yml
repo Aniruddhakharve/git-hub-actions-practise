@@ -17,7 +17,7 @@ on:
     #   - '**.html'
 
   # Allows manual execution of the workflow from the GitHub Actions UI
-  workflow_dispatch:
+ 
 
 
 
