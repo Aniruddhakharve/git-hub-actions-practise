@@ -20,5 +20,18 @@ jobs:
           severity: HIGH,CRITICAL   # Only report HIGH and CRITICAL vulnerabilities
           ignore-unfixed: true  # Ignore vulnerabilities that do not have a fix available
           output: trivy-results.txt
+
       - name: Show Trivy results
         run: cat trivy-results.txt
+      - name: Show Trivy results
+        run: |
+          echo "========== TRIVY SCAN RESULTS =========="
+          cat trivy-results.txt
+          echo "========================================"
+
+      - name: Upload Trivy Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-results.txt    
+  
