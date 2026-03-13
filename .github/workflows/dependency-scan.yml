@@ -1,0 +1,25 @@
+#packages --> if any packages have vernability then it will scan and find the vernaibility in any packages version etc
+#pip audit --> it will scan the packages and find the vernability in your python packages and packages version for python project
+name: Dependency Scan
+
+on:
+    workflow_call:
+
+jobs:
+    dependency-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+
+            - name: setup python 3.12
+              uses: actions/setup-python@v5  
+              with:
+                python-version: "3.12"
+            
+            - name: pip install pip-audit
+              run: pip install pip-audit
+              
+            
+            - name: audit dependencies
+              run: pip-audit -r requirements.txt
